@@ -1,10 +1,28 @@
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react'; // Import necessary components
+import { Card, Image } from 'semantic-ui-react';
 
 const articles = [
-  { title: 'React vs Vue', desc: 'Description- Difference between React OR Vue', author: 'John Doe', rating: 5, image: 'https://www.mindinventory.com/blog/wp-content/uploads/2023/11/react-vs-vue.webp' },
-  { title: 'NodeJS Best Practices', desc: 'Description- what is NodeJS', author: 'Will Smith', rating: 5, image: 'https://www.tatvasoft.com/blog/wp-content/uploads/2021/02/Node-js-Best-Practices-and-Security-768x389.jpg' },
-  { title: 'Understanding React Hooks', desc: 'Description- what are React Hooks', author: 'James Smith', rating: 5, image: 'https://www.yourteaminindia.com/hs-fs/hubfs/Understanding%20React%20Hooks.png?width=1224&height=690&name=Understanding%20React%20Hooks.png' },
+  {
+    title: 'React vs Vue',
+    desc: 'Description- Difference between React OR Vue',
+    author: 'John Doe',
+    rating: 5,
+    image: 'https://www.mindinventory.com/blog/wp-content/uploads/2023/11/react-vs-vue.webp'
+  },
+  {
+    title: 'NodeJS Best Practices',
+    desc: 'Description- what is NodeJS',
+    author: 'Will Smith',
+    rating: 5,
+    image: 'https://www.tatvasoft.com/blog/wp-content/uploads/2021/02/Node-js-Best-Practices-and-Security-768x389.jpg'
+  },
+  {
+    title: 'Understanding React Hooks',
+    desc: 'Description- what are React Hooks',
+    author: 'James Smith',
+    rating: 5,
+    image: 'https://www.yourteaminindia.com/hs-fs/hubfs/Understanding%20React%20Hooks.png?width=1224&height=690&name=Understanding%20React%20Hooks.png'
+  },
 ];
 
 function FeaturedArticles() {
@@ -18,7 +36,10 @@ function FeaturedArticles() {
             <Card.Content>
               <Card.Header>{article.title}</Card.Header>
               <Card.Description>{article.desc}</Card.Description>
-              <Card.Meta>⭐ {article.rating} by {article.author}</Card.Meta>
+              <Card.Meta>
+                {/* Wrap the emoji in a span with an accessible label */}
+                <span aria-label="star">⭐</span> {article.rating} by {article.author}
+              </Card.Meta>
             </Card.Content>
           </Card>
         ))}
