@@ -37,8 +37,7 @@ function FeaturedArticles() {
               <Card.Header>{article.title}</Card.Header>
               <Card.Description>{article.desc}</Card.Description>
               <Card.Meta>
-                {/* Updated: Added role="img" along with aria-label */}
-                <span role="img" aria-label="star">⭐</span> {article.rating} by {article.author}
+                Rating: {article.rating} by {article.author}
               </Card.Meta>
             </Card.Content>
           </Card>
