@@ -1,0 +1,42 @@
+/* Styling for navigation buttons container */
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Space between buttons */
+  margin-top: 20px; /* Space above the buttons */
+}
+
+/* Styling for individual buttons */
+.home-button,
+.post-button {
+  padding: 10px 20px;
+  background-color: #01796F; /* Green theme color */
+  color: white;
+  text-decoration: none; /* Remove underline */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover,
+.post-button:hover {
+  background-color: #005f57; /* Darker green on hover */
+}
+
+/* Adjust buttons layout for smaller screens */
+@media (max-width: 768px) {
+  .navigation-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+  }
+
+  .home-button,
+  .post-button {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+}

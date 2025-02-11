@@ -1,0 +1,22 @@
+.find-question-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .card-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .question-card {
+    flex: 1 1 calc(50% - 20px);
+    min-width: 300px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  

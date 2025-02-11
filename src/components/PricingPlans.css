@@ -1,0 +1,116 @@
+/* Centered Main Container */
+.pricing-plans {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+/* Heading and Description */
+.pricing-plans h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.pricing-plans p {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* Flexbox for Plans */
+.plans {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Plan Card */
+.plan {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.plan:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.plan h2 {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.plan p {
+  color: #555;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+/* Plan Features List */
+.plan ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 20px 0;
+}
+
+.plan ul li {
+  font-size: 1em;
+  color: #666;
+  margin: 5px 0;
+}
+
+/* Buttons */
+button {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Specific Buttons */
+.already-included {
+  background-color: #ccc;
+  color: #555;
+  cursor: not-allowed;
+}
+
+.buy-now {
+  background-color: #007BFF;
+  color: white;
+}
+
+.buy-now:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .plans {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .plan {
+    width: 90%;
+  }
+}

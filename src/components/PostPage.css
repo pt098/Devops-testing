@@ -1,0 +1,69 @@
+/* General Container and Header */
+.post-container {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 3rem auto;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Form Group */
+.post-type-selector {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.post-radio {
+  margin-right: 1rem;
+}
+
+/* Form Styles */
+.post-form .field {
+  margin-bottom: 1.5rem;
+}
+
+.post-form .field label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.post-form input,
+.post-form textarea {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.post-form textarea {
+  min-height: 100px;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+/* Button */
+.post-button {
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.post-button:hover {
+  background-color: #45a049;
+}
