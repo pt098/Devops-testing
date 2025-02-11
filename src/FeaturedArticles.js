@@ -37,8 +37,8 @@ function FeaturedArticles() {
               <Card.Header>{article.title}</Card.Header>
               <Card.Description>{article.desc}</Card.Description>
               <Card.Meta>
-                {/* Wrap the emoji in a span with an accessible label */}
-                <span aria-label="star">⭐</span> {article.rating} by {article.author}
+                {/* Updated: Added role="img" along with aria-label */}
+                <span role="img" aria-label="star">⭐</span> {article.rating} by {article.author}
               </Card.Meta>
             </Card.Content>
           </Card>
