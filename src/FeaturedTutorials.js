@@ -37,8 +37,8 @@ function FeaturedTutorials() {
               <Card.Header>{tutorial.title}</Card.Header>
               <Card.Description>{tutorial.desc}</Card.Description>
               <Card.Meta>
-                {/* Wrap the emoji in a span with an accessible label */}
-                <span aria-label="star">⭐</span> {tutorial.rating} by {tutorial.author}
+                {/* Updated: Added role="img" along with aria-label */}
+                <span role="img" aria-label="star">⭐</span> {tutorial.rating} by {tutorial.author}
               </Card.Meta>
             </Card.Content>
           </Card>
