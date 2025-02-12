@@ -6,6 +6,7 @@ import './setupTests';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createRoot } from 'react-dom/client';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PostPage from './components/PostPage';
@@ -13,7 +14,12 @@ import PostTypeSelector from './components/PostTypeSelector';
 
 // Test for App component: Check that the header "DEV@Deakin" is rendered.
 test('renders header with DEV@Deakin', () => {
-  render(<App />);
+  // If App itself uses routing, you might need to wrap it in MemoryRouter as well.
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
   // Use getByRole to find the <h1> element that exactly contains "DEV@Deakin".
   const headerElement = screen.getByRole('heading', { name: /^DEV@Deakin$/i });
   expect(headerElement).toBeInTheDocument();
@@ -25,7 +31,12 @@ test('renders App without crashing (index test)', () => {
   container.id = 'root';
   document.body.appendChild(container);
   const root = createRoot(container);
-  root.render(<App />);
+  // Wrap App in MemoryRouter if it uses Link or other routing components.
+  root.render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
   root.unmount();
   document.body.removeChild(container);
   expect(true).toBe(true);
@@ -41,9 +52,14 @@ test('reportWebVitals is a function and handles non-function input gracefully', 
 });
 
 // Test for PostPage: Ensure that PostPage renders without crashing.
-// (Assumes PostPage renders a header containing "New Post"; adjust if necessary.)
+// Wrap PostPage in MemoryRouter to provide the necessary routing context.
 test('renders PostPage without crashing', () => {
-  render(<PostPage />);
+  render(
+    <MemoryRouter>
+      <PostPage />
+    </MemoryRouter>
+  );
+  // Assumes PostPage renders a header containing "New Post"; adjust if necessary.
   const headerText = screen.getByText(/New Post/i);
   expect(headerText).toBeInTheDocument();
 });
