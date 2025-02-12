@@ -5,6 +5,6 @@ import App from './App';
 
 test('renders welcome message', () => {
   render(<App />);
-  const headerElement = screen.getByText(/welcome to my website/i);
+  const headerElement = screen.getByText(/DEV@Deakin/i);
   expect(headerElement).toBeInTheDocument();
 });
