@@ -13,7 +13,7 @@ import PostPage from './components/PostPage';
 import PostTypeSelector from './components/PostTypeSelector';
 
 // Test for App component: Check that the header "DEV@Deakin" is rendered.
-// Since App already includes a router, do not wrap it with MemoryRouter.
+
 test('renders header with DEV@Deakin', () => {
   render(<App />);
   // Use getByRole to find the <h1> element that exactly contains "DEV@Deakin".
