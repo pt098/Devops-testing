@@ -13,13 +13,9 @@ import PostPage from './components/PostPage';
 import PostTypeSelector from './components/PostTypeSelector';
 
 // Test for App component: Check that the header "DEV@Deakin" is rendered.
+// Since App already includes a router, do not wrap it with MemoryRouter.
 test('renders header with DEV@Deakin', () => {
-  // If App itself uses routing, you might need to wrap it in MemoryRouter as well.
-  render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
-  );
+  render(<App />);
   // Use getByRole to find the <h1> element that exactly contains "DEV@Deakin".
   const headerElement = screen.getByRole('heading', { name: /^DEV@Deakin$/i });
   expect(headerElement).toBeInTheDocument();
@@ -31,12 +27,8 @@ test('renders App without crashing (index test)', () => {
   container.id = 'root';
   document.body.appendChild(container);
   const root = createRoot(container);
-  // Wrap App in MemoryRouter if it uses Link or other routing components.
-  root.render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
-  );
+  // Render App directly since it already wraps itself in a Router.
+  root.render(<App />);
   root.unmount();
   document.body.removeChild(container);
   expect(true).toBe(true);
@@ -52,7 +44,7 @@ test('reportWebVitals is a function and handles non-function input gracefully', 
 });
 
 // Test for PostPage: Ensure that PostPage renders without crashing.
-// Wrap PostPage in MemoryRouter to provide the necessary routing context.
+// Wrap PostPage in MemoryRouter to provide the necessary routing context for <Link> etc.
 test('renders PostPage without crashing', () => {
   render(
     <MemoryRouter>
@@ -67,6 +59,7 @@ test('renders PostPage without crashing', () => {
 // Test for PostTypeSelector: Ensure that PostTypeSelector renders and displays expected options.
 test('renders PostTypeSelector and displays post type options', () => {
   const setPostType = jest.fn();
+  // PostTypeSelector does not include its own router, so wrapping is not needed.
   render(<PostTypeSelector postType="question" setPostType={setPostType} />);
   const labelElement = screen.getByText(/Select Post Type:/i);
   expect(labelElement).toBeInTheDocument();
