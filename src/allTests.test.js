@@ -1,11 +1,7 @@
 // src/allTests.test.js
 
-// Ensure document.body exists
-if (!document.body) {
-  const body = document.createElement('body');
-  document.documentElement.appendChild(body);
-  document.body = body;
-}
+// Manually import the setup file to ensure it runs in CI.
+import './setupTests';
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
