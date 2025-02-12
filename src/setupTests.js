@@ -1,7 +1,8 @@
-// src/setupTests.js
 import '@testing-library/jest-dom/extend-expect';
 
-// Ensure document.body exists.
 if (!document.body) {
-  document.body = document.createElement('body');
+  const body = document.createElement('body');
+  document.documentElement.appendChild(body);
+  document.body = body;
 }
+console.log('document.body exists:', Boolean(document.body));
