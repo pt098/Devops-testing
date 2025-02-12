@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Header, Form, Radio, Button, Segment } from 'semantic-ui-react';
-import { Link } from 'react-router-dom'; // Import Link for navigation
-import { db, storage } from './firebase'; // Importing Firestore and Storage
-import { collection, addDoc } from 'firebase/firestore'; // For Firestore database
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // For Firebase Storage
+import { Link } from 'react-router-dom'; // For navigation
+import { db, storage } from './firebase'; // Firestore and Storage
+import { collection, addDoc } from 'firebase/firestore'; // Firestore functions
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Storage functions
+import PropTypes from 'prop-types';
 import './PostPage.css';
 
 const PostPage = () => {
-  const [postType, setPostType] = useState('question'); // Default to "Question" of type
+  const [postType, setPostType] = useState('question'); // Default to "question"
   const [loading, setLoading] = useState(false);
-  const [submissionMessage, setSubmissionMessage] = useState(''); // To show submission confirmation
+  const [submissionMessage, setSubmissionMessage] = useState(''); // Submission confirmation message
 
   return (
     <Container className="post-container">
@@ -25,10 +26,11 @@ const PostPage = () => {
         <Form>
           {/* Post Type Selector */}
           <Form.Group inline className="post-type-selector">
-            <label>Select Post Type:</label>
+            <label htmlFor="postTypeSelect">Select Post Type:</label>
             <Form.Field>
               <Radio
                 label="Question"
+                id="postTypeQuestion"
                 name="postType"
                 value="question"
                 checked={postType === 'question'}
@@ -39,6 +41,7 @@ const PostPage = () => {
             <Form.Field>
               <Radio
                 label="Article"
+                id="postTypeArticle"
                 name="postType"
                 value="article"
                 checked={postType === 'article'}
@@ -63,14 +66,14 @@ const PostPage = () => {
             />
           )}
         </Form>
-        {/* Submission message displayed here */}
+        {/* Display submission message */}
         {submissionMessage && <p className="submission-message">{submissionMessage}</p>}
       </Segment>
     </Container>
   );
 };
 
-// Question Form Component
+// QuestionForm Component
 const QuestionForm = ({ loading, setLoading, setSubmissionMessage }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -87,8 +90,8 @@ const QuestionForm = ({ loading, setLoading, setSubmissionMessage }) => {
         createdAt: new Date(),
       });
       setSubmissionMessage('Question has been submitted successfully!');
-      setTitle(''); 
-      setDescription(''); 
+      setTitle('');
+      setDescription('');
       setTags('');
     } catch (error) {
       console.error('Error adding document: ', error);
@@ -99,24 +102,27 @@ const QuestionForm = ({ loading, setLoading, setSubmissionMessage }) => {
   return (
     <Form className="post-form" loading={loading}>
       <Form.Field>
-        <label>Title</label>
+        <label htmlFor="questionTitle">Title</label>
         <input
+          id="questionTitle"
           placeholder="Start your question with how, what, why, etc."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </Form.Field>
       <Form.Field>
-        <label>Describe your problem</label>
+        <label htmlFor="questionDescription">Describe your problem</label>
         <textarea
+          id="questionDescription"
           placeholder="Describe your problem"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Field>
       <Form.Field>
-        <label>Tags</label>
+        <label htmlFor="questionTags">Tags</label>
         <input
+          id="questionTags"
           placeholder="Please add up to 3 tags to describe what your question is about e.g. Java"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
@@ -129,7 +135,13 @@ const QuestionForm = ({ loading, setLoading, setSubmissionMessage }) => {
   );
 };
 
-// Article Form Component with Image Upload
+QuestionForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  setSubmissionMessage: PropTypes.func.isRequired
+};
+
+// ArticleForm Component with Image Upload
 const ArticleForm = ({ loading, setLoading, setSubmissionMessage }) => {
   const [title, setTitle] = useState('');
   const [abstract, setAbstract] = useState('');
@@ -168,7 +180,7 @@ const ArticleForm = ({ loading, setLoading, setSubmissionMessage }) => {
         abstract,
         articleText,
         tags,
-        imageURL, // Save the image URL
+        imageURL,
         createdAt: new Date(),
       });
       setSubmissionMessage('Article has been submitted successfully!');
@@ -187,29 +199,30 @@ const ArticleForm = ({ loading, setLoading, setSubmissionMessage }) => {
   return (
     <Form className="post-form" loading={loading}>
       <Form.Field>
-        <label>Title</label>
+        <label htmlFor="articleTitle">Title</label>
         <input
+          id="articleTitle"
           placeholder="Enter a descriptive title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </Form.Field>
       
-      {/* Image upload UI with Browse and Upload buttons */}
       <Form.Field>
-        <label>Add an image:</label>
+        <label htmlFor="articleImage">Add an image:</label>
         <div className="image-upload-buttons">
           <input
             type="file"
+            id="articleImage"
             onChange={(e) => setImage(e.target.files[0])}
             className="file-input"
           />
           <Button 
             onClick={(e) => { 
-              e.preventDefault(); // Prevent the button from submitting the form
+              e.preventDefault(); 
               handleImageUpload(); 
             }} 
-            type="button" // Specify that this button does not submit the form
+            type="button"
             disabled={!image || loading}
           >
             Upload
@@ -218,24 +231,27 @@ const ArticleForm = ({ loading, setLoading, setSubmissionMessage }) => {
       </Form.Field>
 
       <Form.Field>
-        <label>Abstract</label>
+        <label htmlFor="articleAbstract">Abstract</label>
         <textarea
+          id="articleAbstract"
           placeholder="Enter a 1 paragraph abstract"
           value={abstract}
           onChange={(e) => setAbstract(e.target.value)}
         />
       </Form.Field>
       <Form.Field>
-        <label>Article Text</label>
+        <label htmlFor="articleText">Article Text</label>
         <textarea
+          id="articleText"
           placeholder="Enter the full article text"
           value={articleText}
           onChange={(e) => setArticleText(e.target.value)}
         />
       </Form.Field>
       <Form.Field>
-        <label>Tags</label>
+        <label htmlFor="articleTags">Tags</label>
         <input
+          id="articleTags"
           placeholder="Please add up to 3 tags to describe what your article is about e.g. Java"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
@@ -246,6 +262,12 @@ const ArticleForm = ({ loading, setLoading, setSubmissionMessage }) => {
       </Button>
     </Form>
   );
+};
+
+ArticleForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  setSubmissionMessage: PropTypes.func.isRequired
 };
 
 export default PostPage;
