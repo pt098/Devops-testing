@@ -1,4 +1,12 @@
 // src/allTests.test.js
+
+// Ensure document.body exists
+if (!document.body) {
+  const body = document.createElement('body');
+  document.documentElement.appendChild(body);
+  document.body = body;
+}
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createRoot } from 'react-dom/client';
@@ -7,19 +15,10 @@ import reportWebVitals from './reportWebVitals';
 import PostPage from './components/PostPage';
 import PostTypeSelector from './components/PostTypeSelector';
 
-// Ensure document.body exists before tests run.
-beforeAll(() => {
-  if (!document.body) {
-    const body = document.createElement('body');
-    document.documentElement.appendChild(body);
-    document.body = body;
-  }
-});
-
 // Test for App component: Check that the header "DEV@Deakin" is rendered.
-test('App renders header with DEV@Deakin', () => {
+test('renders header with DEV@Deakin', () => {
   render(<App />);
-  // Use getByRole to target the heading element that exactly matches "DEV@Deakin".
+  // Use getByRole to find the <h1> element that exactly contains "DEV@Deakin".
   const headerElement = screen.getByRole('heading', { name: /^DEV@Deakin$/i });
   expect(headerElement).toBeInTheDocument();
 });
@@ -36,7 +35,7 @@ test('renders App without crashing (index test)', () => {
   expect(true).toBe(true);
 });
 
-// Test for reportWebVitals: Verify it is a function and does not throw on non-function input.
+// Test for reportWebVitals: Verify that it is a function and handles non-function input gracefully.
 test('reportWebVitals is a function and handles non-function input gracefully', () => {
   expect(typeof reportWebVitals).toBe('function');
   expect(() => {
@@ -45,15 +44,15 @@ test('reportWebVitals is a function and handles non-function input gracefully', 
   }).not.toThrow();
 });
 
-// Test for PostPage: Ensure that PostPage renders and displays a known element.
+// Test for PostPage: Ensure that PostPage renders without crashing.
+// (Assumes PostPage renders a header containing "New Post"; adjust if necessary.)
 test('renders PostPage without crashing', () => {
   render(<PostPage />);
-  // Assumes PostPage renders a header containing "New Post" (adjust if needed).
   const headerText = screen.getByText(/New Post/i);
   expect(headerText).toBeInTheDocument();
 });
 
-// Test for PostTypeSelector: Ensure that PostTypeSelector renders and shows expected options.
+// Test for PostTypeSelector: Ensure that PostTypeSelector renders and displays expected options.
 test('renders PostTypeSelector and displays post type options', () => {
   const setPostType = jest.fn();
   render(<PostTypeSelector postType="question" setPostType={setPostType} />);
