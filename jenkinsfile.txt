@@ -1,0 +1,98 @@
+pipeline {
+    agent any
+    
+    triggers {
+        githubPush()
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                
+                git url: 'https://github.com/pt098/Devops-testing.git', branch: 'main'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                echo "Stage 1: Build - Using Maven for build automation. (Tool: Maven)"
+            }
+        }
+        
+        stage('Unit and Integration Tests') {
+            steps {
+                echo "Stage 2: Unit and Integration Tests - Running unit tests with JUnit and integration tests with Selenium. (Tools: JUnit, Selenium)"
+                // Simulate generation of test log
+                sh 'echo "Sample test log content" > test.log'
+            }
+            post {
+                always {
+                    script {
+                        emailext(
+                            to: 'priyanshuthakur20012@gmail.com',
+                            subject: "Stage 2: Unit and Integration Tests - Build ${currentBuild.currentResult}",
+                            body: """\
+                                The Unit and Integration Tests stage has completed with status: ${currentBuild.currentResult}.
+                                Please find the attached test log for details.
+                            """.stripIndent(),
+                            attachmentsPattern: 'test.log'
+                        )
+                    }
+                }
+            }
+        }
+        
+        stage('Code Analysis') {
+            steps {
+                echo "Stage 3: Code Analysis - Analyzing code using SonarQube. (Tool: SonarQube)"
+            }
+        }
+        
+        stage('Security Scan') {
+            steps {
+                echo "Stage 4: Security Scan - Performing security scan using OWASP Dependency-Check. (Tool: OWASP Dependency-Check)"
+                // Simulate generation of security scan log
+                sh 'echo "Sample security scan log content" > security-scan.log'
+            }
+            post {
+                always {
+                    script {
+                        emailext(
+                            to: 'priyanshuthakur20012@gmail.com',
+                            subject: "Stage 4: Security Scan - Build ${currentBuild.currentResult}",
+                            body: """\
+                                The Security Scan stage has completed with status: ${currentBuild.currentResult}.
+                                Please find the attached security scan log for details.
+                            """.stripIndent(),
+                            attachmentsPattern: 'security-scan.log'
+                        )
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy to Staging') {
+            steps {
+                echo "Stage 5: Deploy to Staging - Deploying the application to the staging server. (Tool: AWS CLI)"
+            }
+        }
+        
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Stage 6: Integration Tests on Staging - Running integration tests on the staging environment. (Tool: Postman or custom scripts)"
+            }
+        }
+        
+        stage('Deploy to Production') {
+            steps {
+                echo "Stage 7: Deploy to Production - Deploying the application to the production server. (Tool: AWS CLI)"
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo "Pipeline execution completed."
+        }
+    }
+}
